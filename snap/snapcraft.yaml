@@ -1,0 +1,36 @@
+name: lp-bug-1807555-poc
+base: core18
+adopt-info: version-provider
+summary: Proof of Concept of LP Bug #1807555
+description: |
+  Refer https://bugs.launchpad.net/snapcraft/+bug/1807555 for more info.
+
+grade: stable
+confinement: strict
+
+parts:
+  scriptlets:
+    source: snap/local/scriptlets
+    plugin: dump
+    organize:
+      '*': scriptlets/
+
+  version-provider:
+    after:
+    - scriptlets
+
+    source: .
+    plugin: dump
+    override-pull: |
+      snapcraftctl pull
+      "${SNAPCRAFT_STAGE}"/scriptlets/set-version
+      true
+    override-build: |
+      snapcraftctl build
+
+plugs:
+  home:
+
+layout:
+  /usr/bin:
+    bind: $SNAP/usr/bin
