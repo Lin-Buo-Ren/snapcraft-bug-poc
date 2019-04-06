@@ -1,0 +1,14 @@
+name: bug-20190406-fluffychat
+base: core18
+version: '0.1'
+summary: tba
+description: |
+  tba
+
+grade: stable
+confinement: strict
+
+parts:
+  my-part:
+    # See 'snapcraft plugins'
+    plugin: nil
