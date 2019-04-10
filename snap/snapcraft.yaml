@@ -22,3 +22,8 @@ parts:
     plugin: nil
     stage-packages:
     - x11-common
+    filesets:
+      executables:
+      - usr/bin/*
+    stage:
+    - $executables
