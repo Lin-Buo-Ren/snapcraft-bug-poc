@@ -1,0 +1,29 @@
+name: bug-20190410-guvcview
+base: core18
+version: current
+summary: Proof of concept of IsADirectoryError Snapcraft bug
+description: >
+  Proof of concept of bug regarding to a symlink shipped in the x11-common stage-packages(/usr/bin/X11) which, for some reason, points to `.` and somehow bugs snapcraft out:
+
+            File "/snap/snapcraft/2722/lib/python3.5/site-packages/snapcraft/internal/pluginhandler/_runner.py", line 193, in _handle_builtin_function
+                function(**function_args)
+            File "/snap/snapcraft/2722/lib/python3.5/site-packages/snapcraft/internal/pluginhandler/__init__.py", line 744, in _do_stage
+                fixup_func=fixup_func,
+            File "/snap/snapcraft/2722/lib/python3.5/site-packages/snapcraft/internal/pluginhandler/__init__.py", line 1097, in _migrate_files
+                os.remove(dst)
+        IsADirectoryError: [Errno 21] Is a directory: '/root/stage/usr/bin/X11'
+
+description: N/A
+grade: stable
+confinement: strict
+
+parts:
+  guvcview:
+    plugin: nil
+    stage-packages:
+    - x11-common
+    filesets:
+      executables:
+      - usr/bin/*
+    stage:
+    - $executables
