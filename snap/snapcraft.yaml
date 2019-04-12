@@ -1,0 +1,29 @@
+name: snapcraft-bug-stage-snaps-dirtiness
+base: core18
+version: current
+summary: T.B.A.
+description: |
+  Bug reproduction instructions:
+
+  1. Run `snapcraft stage ccache`
+  2. Uncomment the following commented lines
+  3. Run `snapcraft stage ccache` again
+
+  Expected behavior:
+
+      Snapcraft consider ccache part's `pull` step changed and redo the pull step
+
+  Current behavior:
+
+      Snapcraft consider ccache part's `stage` step changed, then crashed due to the stage snap isn't pull and build yet.
+
+grade: stable
+confinement: strict
+
+parts:
+  ccache:
+    plugin: nil
+    #stage-snaps:
+    #- ccache
+    #stage:
+    #- bin/ccache
